@@ -23,7 +23,7 @@ void Game::Reset()
 
 	bricks.clear();
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		Box generatedBrick;
 
@@ -91,6 +91,17 @@ void Game::Render() const
 	}
 
 	Console::Lock(false);
+
+	if (bricks.size() == 0)
+	{
+
+		Console::SetCursorPosition(24, 14);
+
+
+		std::cout << "You win! Press R to play again.";
+
+	}
+
 }
 
 void Game::CheckCollision()
@@ -116,6 +127,8 @@ void Game::CheckCollision()
 
 				}
 
+				break;
+
 			}
 
 		}
@@ -124,6 +137,11 @@ void Game::CheckCollision()
 
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
 
+	if (bricks.size() == 0)
+	{
+		ball.moving = false;
+
+	}
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
 	{
@@ -131,4 +149,6 @@ void Game::CheckCollision()
 	}
 
 	// TODO #7 - If ball touches bottom of window, pause ball and display (render) defeat text with R to reset
+
+
 }
